@@ -8,7 +8,14 @@ It leverages the Nix package manager for handling dependencies.
 ```shell
 make install
 ```
-
+3. Activate the virtual environment.
+```shell
+source .venv/bin/activate
+```
+4. Run a script.
+```shell
+python scripts/spike.py
+```
 
 # Resources
 - [Apache Spark](https://spark.apache.org/)
