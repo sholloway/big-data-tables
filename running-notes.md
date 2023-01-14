@@ -9,7 +9,9 @@ it is recommended people use that first so that's what I'll do.
 
 ## Challenge: Get going locally with Apache Spark
 - Spark runs on Java 8/11/17, Scala 2.12/2.13, Python 3.7+ and R 3.5+.
-- 
+- Need to install a specific version of Java
+  With Nix 2.0 there is fetchTarball and fetchGit.
+  Can download the Zulu derivation and override it 
 
 ## Challenge: Trying to get Apache Iceberg installed locally.
 I've been trying to get this going using Nix. However there isn't 
@@ -36,8 +38,25 @@ https://spark.apache.org/docs/latest/running-on-kubernetes.html
 - https://spark.apache.org/docs/latest/security.html
 - Log rotation
 
-
 ## Challenge: Monitoring
 - There is a Web UI and REST API for monitoring metrics.
   https://spark.apache.org/docs/latest/monitoring.html
 - Grafana & Prometheus
+
+## Challenge: Learning PySpark
+Key Modules: 
+- Spark RDDs
+- Spark DataFrame
+- Spark Streaming and Structured
+- Spark MLlib
+- Spark ML
+- Graph Frames
+
+- Use the SparkContext class to generate a SparkSession object that acts as a 
+proxy with the cluster. 
+```python
+from pyspark.sql import SparkSession
+spark = SparkSession.builder.appName(‘rev’).getOrCreate()
+``
+- After building the session, use Catalog to see what data is used in the cluster.
+  spark.catalog.listTables() 

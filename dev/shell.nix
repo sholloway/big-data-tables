@@ -14,6 +14,8 @@
 
 {pkgs ? import <nixpkgs> {}}:
 
+let my_zulu = pkgs.callPackage ./zulu.nix { };
+in
 pkgs.mkShell {
   name = "big-tables";
   buildInputs = [ 
@@ -22,6 +24,7 @@ pkgs.mkShell {
     (pkgs.python311.withPackages (ps:
       with ps; [
         pip
-      ]))    
+      ])) 
+    my_zulu  
   ];
 }

@@ -3,7 +3,7 @@ from datetime import datetime, date
 from pyspark.sql import Row
 
 def main() -> None:  
-  spark = SparkSession.builder.getOrCreate()
+  spark = SparkSession.builder.appName('Spike').getOrCreate()
   df = spark.createDataFrame([
     Row(a=1, b=2., c='string1', d=date(2000, 1, 1), e=datetime(2000, 1, 1, 12, 0)),
     Row(a=2, b=3., c='string2', d=date(2000, 2, 1), e=datetime(2000, 1, 2, 12, 0)),
