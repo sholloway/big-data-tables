@@ -22,12 +22,12 @@
 }:
 
 let
-  version = "11.52.13";
-  openjdk = "11.0.13";
+  version = "19.30.11";
+  openjdk = "19.0.1";
 
-  sha256_x64_linux = "77a126669b26b3a89e0117b0f28cddfcd24fcd7699b2c1d35f921487148b9a9f";
-  sha256_x64_darwin = "a96f9f859350f977319ebb5c2a999c182ab6b99b24c60e19d97c54367868a63e";
-  sha256_aarch64_darwin = "dmzfergSUVz39T30PT/6ZtT8JNqv5lzdX7zUsXsFGJg=";
+  sha256_x64_linux = "2ac8cd9e7e1e30c8fba107164a2ded9fad698326899564af4b1254815adfaa8a";
+  sha256_x64_darwin = "f30d7a7799a3b8fc21953b1bf2d9379ffec869128ac4828021f7303d42a221ca";
+  sha256_aarch64_darwin = "ff4261c7191dba694d0a19201df63b3b107d8fc99ebc7c851b3cdf9e1210f25b";
 
   platform = if stdenv.isDarwin then "macosx" else "linux";
   hash = if stdenv.isAarch64 && stdenv.isDarwin then sha256_aarch64_darwin else if stdenv.isDarwin then sha256_x64_darwin else sha256_x64_linux;
