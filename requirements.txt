@@ -1,5 +1,6 @@
 # Run Time Dependencies
 pyspark==3.3.1
+findspark>=2.0.1
 
 # Development Dependencies
 mypy >= "0.991"

@@ -1,15 +1,21 @@
-from pyspark.sql import SparkSession
-from datetime import datetime, date
-from pyspark.sql import Row
+import findspark
+findspark.init()
 
-def main() -> None:  
-  spark = SparkSession.builder.appName('Spike').getOrCreate()
-  df = spark.createDataFrame([
-    Row(a=1, b=2., c='string1', d=date(2000, 1, 1), e=datetime(2000, 1, 1, 12, 0)),
-    Row(a=2, b=3., c='string2', d=date(2000, 2, 1), e=datetime(2000, 1, 2, 12, 0)),
-    Row(a=4, b=5., c='string3', d=date(2000, 3, 1), e=datetime(2000, 1, 3, 12, 0))
-  ])
-  # print(df.toJSON())
+import random
+from pyspark import SparkContext
 
-if __name__ == '__main__':
-  main()
+def inside(p):
+  x, y = random.random(), random.random()
+  return x*x + y*y < 1
+
+sc = SparkContext(appName="EstimatePi")
+NUM_SAMPLES = 1000000
+count = sc.parallelize(range(0, NUM_SAMPLES)).filter(inside).count()
+print("Pi is roughly %f" % (4.0 * count / NUM_SAMPLES))
+sc.stop()
+
+# def main() -> None:    
+  
+
+# if __name__ == '__main__':
+#   main()

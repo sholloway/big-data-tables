@@ -23,7 +23,11 @@ pkgs.mkShell {
   buildInputs = [ 
     pkgs.git
     pkgs.gnumake
-    (pkgs.python311.withPackages (ps:
+    # (pkgs.python311.withPackages (ps:
+    #   with ps; [
+    #     pip
+    #   ])) 
+    (pkgs.python310Full.withPackages (ps:
       with ps; [
         pip
       ])) 
