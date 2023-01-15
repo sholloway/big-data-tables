@@ -8,8 +8,8 @@
 let 
   pname = "spark";
   version = "3.3.1";
-  sha512  = "sha512-WT4jWOLfOxfkjPlCzjUKos0nn6wpZosyrRNzEL1AlEgNNB59hzjm0ID0unQU/JkBMb+QB2lzGFMHP5VAMABOPw==";
-             
+  sha512  = "sha512-c0g90BvoFB4bX7JmsrYYGBNlqLlFXMjRiIEjuS0le6wfIr0mRemu7vHky1wAiwvpFtFKejlWr7Fx/9Qrzn6C3g==";
+                    
   # Create a variable that represents the untarred spark directory.
   untarDir = "${pname}-${version}";
 
@@ -18,7 +18,7 @@ in stdenv.mkDerivation {
 
   # Download the spark tar file.
   src = fetchzip {
-    url = "https://dlcdn.apache.org/spark/${pname}-${version}/${pname}-${version}-bin-without-hadoop.tgz";
+    url = "https://dlcdn.apache.org/spark/${pname}-${version}/${pname}-${version}-bin-hadoop3.tgz";
     sha512 = sha512;
   };
   nativeBuildInputs = [ makeWrapper ];
