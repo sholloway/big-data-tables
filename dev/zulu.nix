@@ -108,17 +108,4 @@ in stdenv.mkDerivation {
   passthru = {
     home = zulu;
   };
-
-  meta = with lib; {
-    homepage = "https://www.azul.com/products/zulu/";
-    license = licenses.gpl2;
-    description = "Certified builds of OpenJDK";
-    longDescription = ''
-      Certified builds of OpenJDK that can be deployed across multiple
-      operating systems, containers, hypervisors and Cloud platforms.
-    '';
-    maintainers = with maintainers; [ ];
-    platforms = [ "x86_64-linux" "x86_64-darwin" "aarch64-darwin" ];
-    mainProgram = "java";
-  };
 }

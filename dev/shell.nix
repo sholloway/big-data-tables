@@ -14,7 +14,9 @@
 
 {pkgs ? import <nixpkgs> {}}:
 
-let my_zulu = pkgs.callPackage ./zulu.nix { };
+let 
+  my_zulu = pkgs.callPackage ./zulu.nix { };
+  spark331 = pkgs.callPackage ./spark.nix { };
 in
 pkgs.mkShell {
   name = "big-tables";
@@ -26,5 +28,6 @@ pkgs.mkShell {
         pip
       ])) 
     my_zulu  
+    spark331
   ];
 }
