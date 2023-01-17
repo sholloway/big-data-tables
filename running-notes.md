@@ -15,7 +15,7 @@ it is recommended people use that first so that's what I'll do.
 - Need to install a specific version of Java
   With Nix 2.0 there is fetchTarball and fetchGit.
   Can download the Zulu derivation and override it
-- After lots of monkeying around I realied that python 3.11 isn't supported
+- After lots of monkeying around I realized that python 3.11 isn't supported
   with Spark 3.3.1. There is a [PR](https://github.com/apache/spark/pull/38987) that adds support that has been merged
   by the Spark team for Spark 3.4. Unfortunately, I don't know when 3.4 will
   be done.
@@ -68,6 +68,9 @@ Key Modules:
 - Spark ML
 - Graph Frames
 
+Common Use Cases
+- 
+
 - Use the SparkContext class to generate a SparkSession object that acts as a
   proxy with the cluster.
 
@@ -78,3 +81,14 @@ spark = SparkSession.builder.appName(‘rev’).getOrCreate()
 - After building the session, use Catalog to see what data is used in the cluster.
   spark.catalog.listTables()
 ```
+
+## Challenge: Finding Data to work with
+- [Netflix Daily Top 10 Movie/TV Show in the United States from 2020 - Mar 2022](https://www.kaggle.com/datasets/prasertk/netflix-daily-top-10-in-us)
+- NYTimes Data Sets?
+- [Global Warming Data](https://www.kaggle.com/datasets/berkeleyearth/climate-change-earth-surface-temperature-data)
+- [Climate Data](https://www.globalchange.gov/browse/datasets)
+- [UCI Machine Learning Repository by the University of California Irvine](https://archive.ics.uci.edu/ml/index.php)
+- [Awesome Public Datasets](https://github.com/awesomedata/awesome-public-datasets)
+- [Pew Research Center](https://www.pewresearch.org/internet/datasets/)
+- [Buzzfeed Datasets](https://github.com/orgs/BuzzFeedNews/repositories?type=all)
+- [Data Set Search](https://data.world/search)
