@@ -69,7 +69,8 @@ Key Modules:
 - Graph Frames
 
 Common Use Cases
-- 
+
+-
 
 - Use the SparkContext class to generate a SparkSession object that acts as a
   proxy with the cluster.
@@ -83,6 +84,7 @@ spark = SparkSession.builder.appName(‘rev’).getOrCreate()
 ```
 
 ## Challenge: Finding Data to work with
+
 - [Netflix Daily Top 10 Movie/TV Show in the United States from 2020 - Mar 2022](https://www.kaggle.com/datasets/prasertk/netflix-daily-top-10-in-us)
 - NYTimes Data Sets?
 - [Global Warming Data](https://www.kaggle.com/datasets/berkeleyearth/climate-change-earth-surface-temperature-data)
@@ -92,3 +94,19 @@ spark = SparkSession.builder.appName(‘rev’).getOrCreate()
 - [Pew Research Center](https://www.pewresearch.org/internet/datasets/)
 - [Buzzfeed Datasets](https://github.com/orgs/BuzzFeedNews/repositories?type=all)
 - [Data Set Search](https://data.world/search)
+- [StackOverflow Developer Survey](https://insights.stackoverflow.com/survey)
+  I choose to use StackOverflow's Annual Developer Survey data. I picked this
+  because:
+
+1. I've been following the survey for years so I'm familiar with the results and
+   I find it interesting.
+2. The dataset is large enough that it makes sense to use Spark and will present
+   challenges with working with the data.
+3. The dataset spans from 2011 to 2022 enabling some trend analysis.
+
+## Challenge: Working with the StackOverflow Data
+I need to:
+- Try processing the files as CSV.
+- Try converting the files to Parquet and then do the same processing.
+- Create Iceberg tables on top of Parquet.
+- Linear Regression forecast of the popularity of Python.
