@@ -110,3 +110,9 @@ I need to:
 - Try converting the files to Parquet and then do the same processing.
 - Create Iceberg tables on top of Parquet.
 - Linear Regression forecast of the popularity of Python.
+
+Process
+1. Create a table for each year's worth of data. 
+2. Create a table that maps each year's columns to their question.
+3. Convert 2011 - 2016 data so it can be used with the other years.
+4. Track the popularity of Python vs Java over time from 2011 to 2022.
