@@ -83,6 +83,74 @@ spark = SparkSession.builder.appName(‘rev’).getOrCreate()
   spark.catalog.listTables()
 ```
 
+### Key Data Structure: RDD
+- RDD stands for resilient distributed dataset.
+- RDDs can recover from node failure.
+- _Shared variables_ can be used to pass data to functions across multiple cluster nodes.
+  Shared variables can be a _broadcast variable_, which are used as a cache across
+  the cluster, or _accumulators_ which are used to implement counters and sums.
+- There are two ways to create RDDs: parallelizing an existing collection in your driver program, or referencing a dataset in an external storage system, such as a shared filesystem, HDFS, HBase, or any data source offering a Hadoop InputFormat.
+  
+**Creating an RDD from a Collection**
+```python
+from pyspark import SparkContext, SparkConf
+conf = SparkConf().setAppName(appName).setMaster(master)
+sc = SparkContext(conf=conf)
+
+# Create an RDD (i.e. a data set that can be worked on in parallel from a collection.)
+data = [1, 2, 3, 4, 5]
+distData = sc.parallelize(data)
+```
+
+- One important parameter for parallel collections is the number of partitions to 
+cut the dataset into. Spark will run one task for each partition of the cluster. 
+- Typically you want 2-4 partitions for each CPU in your cluster. 
+- Spark tries to set the number of partitions automatically based on your cluster. 
+  However, you can also set it manually by passing it as a second parameter to 
+  parallelize (e.g. sc.parallelize(data, 10)).
+
+**Creating an RDD from an external data source**
+```python
+from pyspark import SparkContext, SparkConf
+conf = SparkConf().setAppName(appName).setMaster(master)
+sc = SparkContext(conf=conf)
+# create the RDD from a text file.
+distFile = sc.textFile("data.txt")
+```
+- If using a path on the local filesystem, the file must also be accessible at 
+  the same path on worker nodes. Either copy the file to all workers or use a 
+  network-mounted shared file system.
+- All of Spark’s file-based input methods, including textFile, support running 
+  on directories, compressed files, and wildcards as well. For example, you can 
+  use textFile("/my/directory"), textFile("/my/directory/*.txt"), and 
+  textFile("/my/directory/*.gz").
+
+**RDD Operations**
+- _Transformations_: Creates a new dataset from an operation. Transformations are 
+  lazily computed. By default transformations are computed each time an action 
+  is run on it. However, transformations may be saved using the _persist_ method
+  or _cache_.
+- _Actions_: Returns a value to the driver program after running a computation on a dataset.
+
+**Example of Lazy Computation**
+```python
+# An RDD is created from a text file.
+# This dataset is not loaded in memory or otherwise acted on: lines is merely a pointer to the file.
+lines = sc.textFile("data.txt")
+
+# Define lineLengths as the result of a map transformation. LineLengths is not 
+# immediately computed, due to laziness.
+lineLengths = lines.map(lambda s: len(s))
+
+# Run the reduce action. At this point Spark breaks the computation into tasks 
+# to run on separate machines, and each machine runs both its part of the map 
+# and a local reduction, returning only its answer to the driver program.
+totalLength = lineLengths.reduce(lambda a, b: a + b)
+
+# If we also wanted to use lineLengths again later, we could run 
+# lineLengths.persist() before running reduce.
+```
+
 ## Challenge: Finding Data to work with
 
 - [Netflix Daily Top 10 Movie/TV Show in the United States from 2020 - Mar 2022](https://www.kaggle.com/datasets/prasertk/netflix-daily-top-10-in-us)
