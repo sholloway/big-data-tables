@@ -151,6 +151,44 @@ totalLength = lineLengths.reduce(lambda a, b: a + b)
 # lineLengths.persist() before running reduce.
 ```
 
+### Shared Variables
+
+Broadcast variables a way to create a read-only copy of data for all the executors.
+This is done by calling the `SparkContext.broadcast(v)`.
+```python
+# Create the shared variable.
+broadcastVar = sc.broadcast([1, 2, 3])
+
+# Access it's value
+broadcastVar.value
+# outputs [1, 2, 3]
+
+# To clear the variable from the cache.  If the broadcast is used again 
+# afterwards, it will be re-broadcast.
+broadcastVar.unpersist()
+
+# To permanently remove the variable.
+broadcastVar.destroy()
+```
+
+Leverage [accumulators](https://spark.apache.org/docs/latest/rdd-programming-guide.html#accumulators)
+for collecting counters or sums across distributed workers. 
+An accumulator is created from an initial value v by calling `SparkContext.accumulator(v)`.
+
+```python
+# Create a accumulator.
+accum = sc.accumulator(0)
+
+# Increment the accumulator across the executors.
+sc.parallelize([1, 2, 3, 4]).foreach(lambda x: accum.add(x))
+
+# Access the value of the accumulator.
+# The value should be 10.
+```
+
+The default accumulator data type is an integer. We can create custom accumulators
+by subclassing AccumulatorParam.
+
 ## Challenge: Finding Data to work with
 
 - [Netflix Daily Top 10 Movie/TV Show in the United States from 2020 - Mar 2022](https://www.kaggle.com/datasets/prasertk/netflix-daily-top-10-in-us)
@@ -184,3 +222,20 @@ Process
 2. Create a table that maps each year's columns to their question.
 3. Convert 2011 - 2016 data so it can be used with the other years.
 4. Track the popularity of Python vs Java over time from 2011 to 2022.
+
+
+# Challenge: Leverage a Python Ray cluster to attempt the same use cases.
+Spark is the go to solution for distributed data processing. Try leveraging 
+Python's Ray to handle the same use cases.
+- [Ray Tutorial](https://towardsdatascience.com/modern-parallel-and-distributed-python-a-quick-tutorial-on-ray-99f8d70369b8)
+- [Ray Docs](https://docs.ray.io/en/latest/)
+
+# Challenge: How would one use Spark to process requests from a web application?
+This use case should leverage the replicated storage levels for fast fault recovery. 
+All the storage levels provide full fault tolerance by recomputing lost data, 
+but the replicated ones let you continue running tasks on the RDD without waiting 
+to recompute a lost partition.
+
+# Challenge: How does one benchmark and profile Spark jobs?
+I want to be able to understand the performance trade offs of using CSV vs Parquet
+vs ORC. What are the ways of doing this?
