@@ -57,7 +57,7 @@ https://spark.apache.org/docs/latest/running-on-kubernetes.html
   https://spark.apache.org/docs/latest/monitoring.html
 - Grafana & Prometheus
 
-## Challenge: Learning PySpark
+## Challenge: Learning Spark RDD
 
 Key Modules:
 
@@ -188,6 +188,59 @@ sc.parallelize([1, 2, 3, 4]).foreach(lambda x: accum.add(x))
 
 The default accumulator data type is an integer. We can create custom accumulators
 by subclassing AccumulatorParam.
+
+## Challenge: Learning Spark SQL, DataFrames, and Datasets
+- The same execution engine is used for the various Spark APIs (RDD, SQL, DataFrames, etc)
+  so you can switch between then in a single program.
+- Spark SQL can run SQL commands but also be used to query a Hive database.
+- The various shells (spark-shell, pyspark shell, etc) can be used to run Spark SQL
+  queries.
+
+**Datasets and Data Frames**
+- A _Dataset_ is a distributed collection of data. It is newer than RDD. It provides 
+  the strengths of RDDs with the flexibility of Spark SQL's optimized execution engine.
+- The Dataset API is available in Scala and Java. Python does not have the 
+  support for the Dataset API. But due to Python’s dynamic nature, many of the 
+  benefits of the Dataset API are already available (i.e. you can access the 
+  field of a row by name naturally row.columnName). The case for R is similar.
+- A DataFrame is a Dataset organized into named columns.
+- DataFrames can be constructed from a wide array of sources such as: structured
+  data files, tables in Hive, external databases, or existing RDDs. 
+- The DataFrame API is available in Scala, Java, Python, and R.
+
+DataFrames are powerful. They enable running SQL on them by defining a temporary view.
+```python
+# Register the DataFrame as a SQL temporary view
+df.createOrReplaceTempView("people")
+
+# The query result is a new dataframe
+sqlDF = spark.sql("SELECT * FROM people")
+
+# Dump the dataframe to STDOUT.
+sqlDF.show()
+```
+
+
+## Challenge: Learning Stream Processing with Spark
+Spark Streaming has been deprecated. The replacement is the Structured Streaming engine.
+
+By default, Structured Streaming queries are processed using a micro-batch 
+processing engine, which processes data streams as a series of small batch jobs 
+thereby achieving end-to-end latencies as low as 100 milliseconds and exactly-once 
+fault-tolerance guarantees. The newer _Continuous Processing_ engine can achieve
+end-to-end latencies as low as 1 millisecond. The continuous processing engine
+is still in experimental status.
+
+
+
+## Challenge: Learning Spark ML
+TODO
+
+## Challenge: Understand the Hive Use Cases
+TODO
+
+## Challenge: Apache Presto
+PrestoDB or just Presto is a query engine.
 
 ## Challenge: Finding Data to work with
 
