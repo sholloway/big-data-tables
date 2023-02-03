@@ -6,7 +6,7 @@ It leverages the Nix package manager for handling dependencies.
 1. Install the [Nix package manager](https://nixos.org/manual/nix/stable/installation/installing-binary.html).
 2. Using nix, install the project dependencies.
 ```shell
-make install
+make nix setupmake
 ```
 3. Activate the virtual environment.
 ```shell

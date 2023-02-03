@@ -1,4 +1,6 @@
 # Run Time Dependencies
+wheel >= "0.38.4"
+setuptools >= "67.1.0"
 pyspark==3.3.1
 findspark>=2.0.1
 
@@ -7,7 +9,9 @@ mypy >= "0.991"
 py-spy >= "0.3.14"
 pytest >= "7.2.0"
 pytest-mock >= "3.10.0"
-bpython >= "0.23.0"
 pytest-cov >= "4.0.0"
 pdoc >= "12.3.1"
-line-profiler >= "4.0.2"
+
+# Failing due to Clang not finding C++ libraries...
+# bpython >= "0.23.0"     # Missing cstdlib
+# line-profiler >= "4.0.2" # Missing #include "ios"
