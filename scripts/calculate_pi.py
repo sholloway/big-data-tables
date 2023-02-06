@@ -1,5 +1,10 @@
-# import findspark
-# findspark.init()
+'''
+This script calculates an approximation of the number PI using PySpark.
+It is intended to be run locally.
+
+To Run
+python scripts/calculate_pi.py
+'''
 
 import random
 from pyspark import SparkContext

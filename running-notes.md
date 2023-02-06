@@ -50,11 +50,14 @@ https://spark.apache.org/docs/latest/running-on-kubernetes.html
 - Leverage Zookeeper for managing standby master nodes.
 - https://spark.apache.org/docs/latest/security.html
 - Log rotation
+- Scaling the number of nodes vs scaling the number of pods.
+- AWS EKS Scaling Guide: https://aws.github.io/aws-eks-best-practices/
 
 ## Challenge: Monitoring
 
 - There is a Web UI and REST API for monitoring metrics.
   https://spark.apache.org/docs/latest/monitoring.html
+- Kubernetes ships with a dashboard.
 - Grafana & Prometheus
 
 ## Challenge: Learning Spark RDD
@@ -232,7 +235,6 @@ end-to-end latencies as low as 1 millisecond. The continuous processing engine
 is still in experimental status.
 
 
-
 ## Challenge: Learning Spark ML
 TODO
 
@@ -292,3 +294,6 @@ to recompute a lost partition.
 # Challenge: How does one benchmark and profile Spark jobs?
 I want to be able to understand the performance trade offs of using CSV vs Parquet
 vs ORC. What are the ways of doing this?
+
+# Challenge: Interact with a Spark cluster with the PySpark REPL
+TODO
