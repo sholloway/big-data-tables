@@ -41,9 +41,13 @@ Iceberg is a Java Jar based application. My options are:
 - Architecture: https://spark.apache.org/docs/latest/cluster-overview.html
 - https://spark.apache.org/docs/latest/spark-standalone.html
 
-## Challenge: Spark Cluster running on K8
+## Challenge: Spark Cluster running on K8s
 
 https://spark.apache.org/docs/latest/running-on-kubernetes.html
+
+This is tough. Getting K8s configured correctly is non-trivial. 
+To make matters worse there are diffent types of deployment modes.
+For better of for worse, I'm focusing on the K8s cluster deployment mode.
 
 ## Considerations for Production Clusters
 
@@ -296,4 +300,9 @@ I want to be able to understand the performance trade offs of using CSV vs Parqu
 vs ORC. What are the ways of doing this?
 
 # Challenge: Interact with a Spark cluster with the PySpark REPL
-TODO
+This is pretty easy. Once the Spark is working on K8s and configured to do port
+forwarding all you've got to do is the following.
+```shell
+pyspark --master k8s://http://localhost:8001/ \
+  --conf spark.kubernetes.container.image=bitnami/spark:3
+```
